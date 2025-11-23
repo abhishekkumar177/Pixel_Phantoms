@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
 });
 
-/* =========================================
-   1. INTERACTIVE PARTICLE NETWORK (CANVAS)
-   ========================================= */
+/* 1. PARTICLES */
 function initParticles() {
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
@@ -15,21 +13,18 @@ function initParticles() {
 
     let particlesArray;
 
-    // Handle Window Resize
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         createParticles();
     });
 
-    // Mouse Interaction
     const mouse = { x: null, y: null, radius: 150 };
     window.addEventListener('mousemove', (event) => {
         mouse.x = event.x;
         mouse.y = event.y;
     });
 
-    // Particle Class
     class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
@@ -41,12 +36,9 @@ function initParticles() {
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
-
-            // Boundary check
             if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
             if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
 
-            // Mouse repulsion
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
@@ -54,10 +46,8 @@ function initParticles() {
                 const forceDirectionX = dx / distance;
                 const forceDirectionY = dy / distance;
                 const force = (mouse.radius - distance) / mouse.radius;
-                const directionX = forceDirectionX * force * 3;
-                const directionY = forceDirectionY * force * 3;
-                this.x -= directionX;
-                this.y -= directionY;
+                this.x -= forceDirectionX * force * 3;
+                this.y -= forceDirectionY * force * 3;
             }
         }
         draw() {
@@ -91,8 +81,6 @@ function initParticles() {
             let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
             if (distance < (canvas.width / 7) * (canvas.height / 7)) {
                 let opacityValue = 1 - (distance / 20000);
-                let color = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim();
-                // Convert hex/var to rgba for opacity is complex in plain JS, simplified to gray:
                 ctx.strokeStyle = `rgba(150, 150, 150, ${opacityValue})`;
                 ctx.lineWidth = 1;
                 ctx.beginPath();
@@ -107,52 +95,36 @@ function initParticles() {
     animateParticles();
 }
 
-/* =========================================
-   2. 3D TILT EFFECT (VANILLA JS)
-   ========================================= */
+/* 2. TILT */
 function initTiltEffect() {
     const cards = document.querySelectorAll('[data-tilt]');
-
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const cardRect = card.getBoundingClientRect();
-            const cardWidth = cardRect.width;
-            const cardHeight = cardRect.height;
-            
-            // Calculate mouse position relative to card center
-            const centerX = cardRect.left + cardWidth / 2;
-            const centerY = cardRect.top + cardHeight / 2;
+            const centerX = cardRect.left + cardRect.width / 2;
+            const centerY = cardRect.top + cardRect.height / 2;
             const mouseX = e.clientX - centerX;
             const mouseY = e.clientY - centerY;
-
-            // Calculate rotation (Max 20 degrees)
-            const rotateX = (mouseY / (cardHeight / 2)) * -15;
-            const rotateY = (mouseX / (cardWidth / 2)) * 15;
-
+            const rotateX = (mouseY / (cardRect.height / 2)) * -15;
+            const rotateY = (mouseX / (cardRect.width / 2)) * 15;
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
         });
-
         card.addEventListener('mouseleave', () => {
-            // Reset on leave
             card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
         });
     });
 }
 
-/* =========================================
-   3. SCROLL REVEAL & COUNTERS
-   ========================================= */
+/* 3. SCROLL ANIMATION */
 function initScrollAnimations() {
     const reveals = document.querySelectorAll('.reveal');
     const counters = document.querySelectorAll('.counter');
-    let counted = false; // Ensure counters run only once
+    let counted = false;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-
-                // Trigger counters if the stats section is revealed
                 if (entry.target.classList.contains('stats-section') && !counted) {
                     startCounters(counters);
                     counted = true;
@@ -167,26 +139,22 @@ function initScrollAnimations() {
 function startCounters(counters) {
     counters.forEach(counter => {
         const target = +counter.getAttribute('data-target');
-        const speed = 200; // Lower is slower
-        
+        const speed = 200;
         const updateCount = () => {
             const current = +counter.innerText;
             const increment = target / speed;
-
             if (current < target) {
                 counter.innerText = Math.ceil(current + increment);
                 setTimeout(updateCount, 20);
             } else {
-                counter.innerText = target + "+"; // Add plus sign at end
+                counter.innerText = target + "+";
             }
         };
         updateCount();
     });
 }
 
-/* =========================================
-   4. UTILITIES
-   ========================================= */
+/* 4. COPY LINK */
 function copyLink(link) {
     navigator.clipboard.writeText(link).then(() => {
         showToast("Invite Link Copied! 📋");

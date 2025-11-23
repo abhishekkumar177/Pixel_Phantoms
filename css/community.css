@@ -1,11 +1,7 @@
-/* ================= COMMUNITY PAGE STYLES ================= */
-
-/* Hero Section with Canvas */
 .community-hero {
     position: relative;
     text-align: center;
     padding: 100px 20px;
-    /* Fallback background if canvas fails */
     background: var(--bg-primary); 
     border-bottom: 1px solid var(--border-color);
     overflow: hidden;
@@ -17,13 +13,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Behind content */
+    z-index: 0;
     opacity: 0.6;
 }
 
 .hero-content {
     position: relative;
-    z-index: 1; /* Above canvas */
+    z-index: 1;
 }
 
 .community-hero h1 {
@@ -66,7 +62,6 @@
     box-shadow: 0 15px 30px rgba(0, 170, 255, 0.4);
 }
 
-/* Stats Section */
 .stats-section {
     display: flex;
     justify-content: center;
@@ -75,6 +70,7 @@
     position: relative;
     z-index: 2;
     flex-wrap: wrap;
+    margin-bottom: 60px;
 }
 
 .stat-box {
@@ -100,9 +96,8 @@
     font-weight: 600;
 }
 
-/* Platforms Grid & 3D Tilt */
 .platforms-section {
-    padding: 80px 20px;
+    padding: 60px 20px;
 }
 
 .section-title {
@@ -118,7 +113,7 @@
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
-    perspective: 1000px; /* Essential for 3D effect */
+    perspective: 1000px;
 }
 
 .platform-card {
@@ -128,24 +123,22 @@
     min-height: 300px;
     text-align: center;
     position: relative;
-    transform-style: preserve-3d; /* Key for 3D children */
-    transform: translateZ(0); /* Hardware acceleration */
+    transform-style: preserve-3d;
+    transform: translateZ(0);
     will-change: transform;
-    transition: transform 0.1s ease-out; /* Smooth mouse follow */
+    transition: transform 0.1s ease-out;
     cursor: pointer;
 }
 
-/* Inner content container for depth */
 .card-content {
     padding: 40px 30px;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translateZ(30px); /* Pop out text */
+    transform: translateZ(30px);
 }
 
-/* Glare Effect */
 .platform-card::after {
     content: '';
     position: absolute;
@@ -158,17 +151,16 @@
 }
 
 .platform-card:hover::after {
-    opacity: 0.1; /* Subtle shine */
+    opacity: 0.1;
 }
 
 .icon-box {
     font-size: 3.5rem;
     margin-bottom: 20px;
-    transform: translateZ(50px); /* Pop out icon more */
+    transform: translateZ(50px);
     filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
 }
 
-/* Brand Colors */
 .discord .icon-box { color: #5865F2; }
 .github .icon-box { color: var(--text-primary); }
 .linkedin .icon-box { color: #0077B5; }
@@ -197,7 +189,7 @@
     font-weight: 700;
     text-decoration: none;
     transition: 0.3s;
-    transform: translateZ(40px); /* Button floats highest */
+    transform: translateZ(40px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
@@ -208,7 +200,78 @@
     box-shadow: 0 5px 20px rgba(0, 170, 255, 0.4);
 }
 
-/* Scroll Reveal Animation Classes */
+.values-section {
+    margin: 80px auto; 
+    padding: 0 20px;
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px; 
+    width: 100%;
+}
+
+.three-column-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    width: 100%;
+}
+
+.info-table-card {
+    flex: 0 1 320px; 
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 40px 30px;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start;
+    
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: var(--shadow);
+}
+.info-table-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.table-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    background: rgba(0, 170, 255, 0.1);
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+}
+
+.info-table-card h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.divider {
+    width: 50px;
+    height: 3px;
+    background: var(--accent-color);
+    margin: 15px 0;
+    border-radius: 2px;
+}
+
+.info-table-card p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
 .reveal {
     opacity: 0;
     transform: translateY(50px);
@@ -220,7 +283,6 @@
     transform: translateY(0);
 }
 
-/* Toast Notification */
 .toast {
     position: fixed;
     bottom: 30px;
@@ -232,7 +294,7 @@
     border-radius: 50px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     opacity: 0;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy */
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 1000;
     border: 1px solid var(--accent-color);
     font-weight: bold;
