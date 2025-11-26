@@ -103,9 +103,13 @@
     padding: 0 5vw;
 }
 
+/* UPDATED: Responsive Card Sizes */
 .h-card {
-    width: 400px;
-    height: 500px;
+    min-width: 300px;
+    width: 25vw; /* Responsive width based on viewport */
+    max-width: 450px;
+    height: 60vh; /* Responsive height */
+    max-height: 500px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 30px;
@@ -131,6 +135,7 @@
 .h-card h3 {
     font-size: 2.5rem;
     margin: 0;
+    color: var(--text-primary);
 }
 
 .h-card p {
@@ -145,16 +150,144 @@
     font-size: 1.1rem;
 }
 
+/* --- NEW: HOSTS MESSAGE SECTION --- */
+.hosts-message-section {
+    padding: 80px 20px;
+    background: var(--bg-primary);
+}
+
+.section-title-drop {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--text-primary);
+}
+
+.message-card-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.message-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--shadow);
+    position: relative;
+    border-left: 5px solid var(--accent-color);
+}
+
+.msg-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.message-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.message-card p {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.msg-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-weight: 600;
+}
+
+/* --- NEW: SUPPORT & LEGAL SECTION --- */
+.support-legal-section {
+    padding: 60px 20px 100px;
+    background: var(--bg-secondary);
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.support-box {
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 20px;
+    background: var(--bg-primary); /* Contrast against section bg */
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.support-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+}
+
+.support-box i {
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    transition: color 0.3s;
+}
+
+.support-box:hover i {
+    color: var(--accent-color);
+}
+
+.support-box h3 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+}
+
+.support-box p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.btn-text {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: border 0.3s;
+}
+
+.btn-text:hover {
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- ANIMATION CLASSES --- */
+.drop-anim {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
 /* --- STATS --- */
 .stats-section {
     display: flex;
     justify-content: space-around;
     padding: 100px 0;
     background: var(--bg-primary);
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 .stat-item {
     text-align: center;
+    min-width: 200px;
 }
 
 .stat-item h2 {
@@ -167,5 +300,6 @@
 @media (max-width: 768px) {
     .hero-title { font-size: 15vw; }
     .reveal-text { font-size: 1.5rem; }
-    .h-card { width: 80vw; height: 60vh; }
+    .h-card { width: 80vw; height: 50vh; }
+    .pin-content { gap: 20px; }
 }

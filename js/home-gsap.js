@@ -57,7 +57,25 @@ document.addEventListener("DOMContentLoaded", () => {
         invalidateOnRefresh: true
     });
 
-    // --- 4. STATS COUNTER ANIMATION ---
+    // --- 4. NEW: DROP DOWN ANIMATION FOR MESSAGES & SUPPORT ---
+    // Select all elements with the 'drop-anim' class
+    const dropItems = document.querySelectorAll('.drop-anim');
+    
+    dropItems.forEach(item => {
+        gsap.to(item, {
+            scrollTrigger: {
+                trigger: item,
+                start: "top 85%", // Triggers when top of element hits 85% of viewport
+                toggleActions: "play none none reverse"
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "back.out(1.7)" // Bouncy drop effect
+        });
+    });
+
+    // --- 5. STATS COUNTER ANIMATION ---
     const counters = document.querySelectorAll('.counter');
     
     counters.forEach(counter => {
