@@ -1,6 +1,7 @@
 const REPO_OWNER = 'sayeeg-11';
 const REPO_NAME = 'Pixel_Phantoms';
 const API_BASE = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`;
+const EVENTS_DATA_URL = 'data/events.json';
 const XP_MULTIPLIER = 100;
 
 // Scoring System
@@ -10,6 +11,9 @@ const POINTS = {
     L1: 2,
     DEFAULT: 1
 };
+
+// Event attendance points
+const EVENT_POINTS = 250;
 
 // League Definitions for Logic
 const LEAGUES = {
@@ -26,8 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
 async function initLeaderboard() {
     const container = document.getElementById('lb-rows');
     try {
-        const pulls = await fetchAllPulls();
-        const scores = calculateScores(pulls);
+        const [pulls, eventsData] = await Promise.all([
+            fetchAllPulls(),
+            fetchEventsData()
+        ]);
+        
+        const scores = calculateScores(pulls, eventsData);
         const topContributors = getTopContributors(scores);
         
         renderLeaderboard(topContributors);
@@ -36,6 +44,7 @@ async function initLeaderboard() {
         if(container) container.innerHTML = `<div style="padding:20px; text-align:center; color:#ff5f56;">Connection Lost. Retrying uplink...</div>`;
     }
 }
+
 async function fetchAllPulls() {
     let pulls = [];
     let page = 1;
@@ -52,16 +61,37 @@ async function fetchAllPulls() {
     return pulls;
 }
 
-function calculateScores(pulls) {
+async function fetchEventsData() {
+    try {
+        const res = await fetch(EVENTS_DATA_URL);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return data;
+    } catch (e) {
+        console.warn("Failed to fetch events data:", e);
+        return [];
+    }
+}
+
+function calculateScores(pulls, eventsData) {
     const statsMap = {};
 
+    // Process Pull Requests
     pulls.forEach(pr => {
         if (!pr.merged_at) return;
 
         const user = pr.user.login;
         if (user.toLowerCase() === REPO_OWNER.toLowerCase()) return;
 
-        if (!statsMap[user]) statsMap[user] = 0;
+        if (!statsMap[user]) {
+            statsMap[user] = {
+                login: user,
+                xp: 0,
+                prCount: 0,
+                eventsAttended: 0,
+                avatar: pr.user.avatar_url
+            };
+        }
 
         let prPoints = 0;
         let hasLevel = false;
@@ -74,15 +104,26 @@ function calculateScores(pulls) {
         });
 
         if (!hasLevel) prPoints += POINTS.DEFAULT;
-        statsMap[user] += prPoints;
+        
+        statsMap[user].xp += prPoints * XP_MULTIPLIER;
+        statsMap[user].prCount++;
+    });
+
+    // Process Events Attendance (mock data for demonstration)
+    // In a real implementation, this would come from a CSV or database
+    // For now, we'll simulate some event attendance
+    Object.keys(statsMap).forEach(user => {
+        // Simulate random event attendance for demo purposes
+        const eventsAttended = Math.floor(Math.random() * 5); // 0-4 events
+        statsMap[user].eventsAttended = eventsAttended;
+        statsMap[user].xp += eventsAttended * EVENT_POINTS;
     });
 
     return statsMap;
 }
 
 function getTopContributors(statsMap) {
-    return Object.entries(statsMap)
-        .map(([login, points]) => ({ login, xp: points * XP_MULTIPLIER }))
+    return Object.values(statsMap)
         .sort((a, b) => b.xp - a.xp)
         .slice(0, 5); // Show Top 5 on Homepage
 }
@@ -112,13 +153,17 @@ function renderLeaderboard(contributors) {
         const row = document.createElement('div');
         row.className = `lb-row rank-${rank}`;
         
+        // Add activity indicator based on recent contributions
+        const activityIndicator = contributor.prCount > 3 ? '🔥' : (contributor.eventsAttended > 2 ? '⭐' : '');
+        
         row.innerHTML = `
             <div class="lb-rank">
                 <div class="lb-rank-badge">${rank}</div>
             </div>
             <div class="lb-user-info">
-                <span class="lb-username">@${contributor.login}</span>
+                <span class="lb-username">@${contributor.login} ${activityIndicator}</span>
                 <span class="lb-league-tag" style="color: ${league.color}">${league.name}</span>
+                <span class="lb-stats">${contributor.prCount} PRs • ${contributor.eventsAttended} Events</span>
             </div>
             <div class="lb-xp-val">
                 ${contributor.xp.toLocaleString()} XP
@@ -136,4 +181,15 @@ function renderLeaderboard(contributors) {
             row.style.transform = "translateY(0)";
         }, index * 100);
     });
+    
+    // Add footer with info about the scoring system
+    const footer = document.createElement('div');
+    footer.className = 'lb-footer-enhanced';
+    footer.innerHTML = `
+        <div class="lb-scoring-info">
+            <span class="scoring-item">PR Levels: L1=200pt, L2=500pt, L3=1100pt</span>
+            <span class="scoring-item">Events: 250pt each</span>
+        </div>
+    `;
+    container.appendChild(footer);
 }
