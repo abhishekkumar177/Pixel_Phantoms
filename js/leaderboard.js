@@ -265,12 +265,6 @@ function calculateLeaderboard(pulls, eventsData) {
         // Events add momentum (Mass + Velocity impact)
         userMap[user].mass += (eventParticipation * 2); 
         userMap[user].velocity += (eventParticipation * 5); 
-        
-        // Team player achievement
-        if (eventParticipation >= 3) {
-            userMap[user].achievements['team_player'] = true;
-            userMap[user].xp += ACHIEVEMENTS.find(a => a.id === 'team_player').xp;
-        }
     });
 
     // C. Finalize & Sort
@@ -386,9 +380,6 @@ function renderLeaderboardTable(data) {
             exportLeaderboard(data);
         });
     }
-    
-    // Populate user select for comparison
-    populateUserSelect(data);
 }
 
 function renderPhysicsEngine(data) {
