@@ -635,136 +635,236 @@ body.hud-mode {
 }
 
 /* --- 3. PROJECTS VIEW (Hex Grid) --- */
-/* --- New Project View Styling for enhanced content --- */
+/* --- 3. PROJECTS VIEW (Modules & Tracks) --- */
 
-/* Wrapper for the new content to fix potential gapping in the main HUD section */
+.section-heading {
+    /* Style consistency with hud-top-bar h1, but slightly adapted for section */
+    font-family: var(--font-hud);
+    font-size: 2.2rem;
+    margin: 30px 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /* Use neon-cyan for shadow/color */
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+    color: var(--neon-cyan);
+    border-bottom: 2px solid rgba(0, 243, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+/* Container for all module sections */
 .module-sections {
-    padding: 20px;
-    margin-top: 20px;
+    padding: 10px 0;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .section-title-module {
-    color: var(--color-accent, #00b0ff); /* Assuming an accent color variable exists */
+    font-family: var(--font-hud);
+    /* Use neon-purple for secondary section titles */
+    color: var(--neon-purple); 
     font-size: 1.5em;
-    margin-bottom: 25px;
+    margin: 30px 0 25px 0;
     padding-bottom: 10px;
-    border-bottom: 2px solid var(--color-border, #333);
+    border-bottom: 1px solid var(--neon-purple);
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(188, 19, 254, 0.2);
 }
 
 .section-divider {
     border: none;
     height: 1px;
-    background-color: var(--color-border, #444);
+    /* Gradient divider for a more dynamic look */
+    background: linear-gradient(to right, transparent, var(--text-dim), transparent);
     margin: 40px 0;
 }
 
-/* --- Discipline Track Card Styling (Inspired by About.html Cards) --- */
+/* --- Discipline Track Cards (Inspired by Committee Member Cards) --- */
 
 .discipline-track-container {
     display: grid;
-    /* Responsive grid: Min width of 300px for each card, flexible columns */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* Responsive grid: Min width of 320px for each card, automatically filling columns to avoid gaps */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
 }
 
 .track-card {
-    /* Use variables common for card backgrounds */
-    background-color: var(--card-background-dark, #1c1c1c); 
-    color: var(--color-text, #f0f0f0);
-    padding: 20px;
-    border-radius: 8px;
-    text-decoration: none; /* Remove underline for anchor tag */
-    display: block; /* Make the anchor fill the card area */
-    border: 1px solid var(--color-border-light, #333);
-    transition: all 0.3s ease;
+    background: var(--panel-bg);
+    color: var(--text-main);
+    padding: 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    display: block; 
+    cursor: pointer;
+    
+    /* Neon Border and Shadow (Initial State) */
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.05);
+    
+    /* Dynamic Animation: Transform and border/shadow changes */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Initial subtle fade-in animation on load */
+    animation: cardSlideUp 0.6s ease-out backwards;
 }
 
+/* Staggering for animation (CSS only, JS must add the delays) */
+.discipline-track-container .track-card:nth-child(1) { animation-delay: 0.0s; }
+.discipline-track-container .track-card:nth-child(2) { animation-delay: 0.1s; }
+.discipline-track-container .track-card:nth-child(3) { animation-delay: 0.2s; }
+.discipline-track-container .track-card:nth-child(4) { animation-delay: 0.3s; }
+.discipline-track-container .track-card:nth-child(5) { animation-delay: 0.4s; }
+.discipline-track-container .track-card:nth-child(6) { animation-delay: 0.5s; }
+
+
 .track-card:hover {
-    /* Hover effect similar to committee members */
-    background-color: var(--card-background-hover, #282828);
-    border-color: var(--color-primary, #007bff); /* Highlight border on hover */
-    transform: translateY(-5px); /* Subtle lift */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    /* Enhanced Hover Effect: Pronounced lift and glow */
+    background: rgba(16, 20, 24, 0.95);
+    border-color: var(--neon-cyan);
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 30px rgba(0, 243, 255, 0.2), 0 0 25px var(--neon-cyan);
 }
 
 .track-card h4 {
     margin-top: 0;
-    font-size: 1.2em;
-    color: var(--color-primary, #007bff);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    font-family: var(--font-hud);
+    font-size: 1.3rem;
+    color: var(--neon-cyan);
+    border-bottom: 1px solid rgba(188, 19, 254, 0.3);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
 }
 
 .track-card p {
-    font-size: 0.9em;
-    margin: 5px 0;
+    font-size: 0.95rem;
+    margin: 7px 0;
+    color: var(--text-main);
+}
+
+.track-card strong {
+    color: var(--neon-green);
+    font-weight: 700;
 }
 
 .complexity-level {
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
 }
 
 /* Color coding for complexity */
 .level-high {
-    color: #ff4d4d; /* Red/Alert color */
-    background-color: rgba(255, 77, 77, 0.1);
+    color: var(--neon-red); 
+    background-color: rgba(255, 0, 85, 0.15);
+    border: 1px solid rgba(255, 0, 85, 0.3);
 }
 
 .level-medium-high {
-    color: #ffc107; /* Yellow/Warning color */
-    background-color: rgba(255, 193, 7, 0.1);
+    color: var(--neon-yellow); 
+    background-color: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .new-track {
-    border-color: #28a745; /* Green for new suggestion */
+    border: 2px solid var(--neon-green); 
+    box-shadow: 0 0 10px rgba(10, 255, 96, 0.3);
 }
 
-/* --- Info Card Styling (for Rulebook and R&D Archives) --- */
+/* --- Info Card Styling (Rulebook and R&D Archives) --- */
 
 .info-card-container {
     display: grid;
-    grid-template-columns: 1fr; /* Full width for the whole section */
+    /* Restrict max width slightly for better readability of text sections */
+    grid-template-columns: minmax(300px, 800px); 
+    justify-content: start; 
+    margin: 20px 0;
 }
 
 .info-card {
-    background-color: var(--card-background-light, #212121);
-    padding: 25px;
-    border-radius: 8px;
-    border-left: 5px solid var(--color-secondary, #6c757d); /* Use a distinguished border color */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: var(--panel-bg);
+    border: var(--panel-border);
+    padding: 30px;
+    border-radius: 12px;
+    
+    /* Neon Left Border and Shadow */
+    border-left: 5px solid var(--neon-purple); 
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.1);
+    
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.info-card:hover {
+    box-shadow: 0 0 30px rgba(188, 19, 254, 0.25);
+    border-left-color: var(--neon-cyan);
 }
 
 .info-card h4 {
-    color: var(--color-accent, #00b0ff);
+    font-family: var(--font-hud);
+    color: var(--neon-cyan);
     margin-top: 0;
     margin-bottom: 15px;
-    font-size: 1.3em;
+    font-size: 1.4em;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .info-card ul {
     list-style: none;
     padding-left: 0;
+    margin: 0;
+    font-family: var(--font-mono);
 }
 
 .info-card li {
     margin-bottom: 15px;
-    padding-left: 20px;
+    padding-left: 25px;
     position: relative;
-    font-size: 0.95em;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .info-card li::before {
-    content: '→'; /* Custom bullet point/icon */
+    content: '>>'; 
     position: absolute;
     left: 0;
-    color: var(--color-primary, #007bff);
+    color: var(--neon-green);
     font-weight: bold;
+    font-family: var(--font-mono);
 }
+
+/* Styling for code/variables inside list items */
+.info-card code {
+    font-family: var(--font-mono);
+    color: var(--neon-yellow);
+    background: rgba(255, 215, 0, 0.08);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* --- ANIMATION DEFINITION --- */
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/*
+    NOTE: The subsequent sections (4. ACHIEVEMENTS VIEW, 5. SETTINGS VIEW, and MODAL STYLES) 
+    are assumed to remain correctly below this section in your leaderboard.css file, 
+    as they were not explicitly part of the Project View.
+*/
+
 
 /* --- 4. ACHIEVEMENTS VIEW --- */
 .achievements-container {
