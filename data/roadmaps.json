@@ -287,5 +287,105 @@
         ]
       }
     ]
+  },
+  "hardware": {
+    "title": "IoT_Embedded_Protocol_v1.0",
+    "description": "Initialize sequence: Hardware Control. Physical Computing focus.",
+    "phases": [
+      {
+        "id": "phase_1",
+        "title": "PHASE_01: Circuit_Logic",
+        "status": "unlocked",
+        "modules": [
+          {
+            "title": "Electricity Basics",
+            "desc": "Ohm's Law, Voltage, Current, and Resistance.",
+            "link": "https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all",
+            "icon": "fa-solid fa-plug"
+          },
+          {
+            "title": "Breadboarding",
+            "desc": "Prototyping without soldering. Connecting the dots.",
+            "link": "https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard",
+            "icon": "fa-solid fa-microchip"
+          },
+          {
+            "title": "Arduino C++",
+            "desc": "The language of microcontrollers. void setup() & void loop().",
+            "link": "https://www.arduino.cc/en/Guide/Introduction",
+            "icon": "fa-solid fa-code"
+          }
+        ]
+      },
+      {
+        "id": "phase_2",
+        "title": "PHASE_02: Sensor_Fusion",
+        "status": "locked",
+        "modules": [
+          {
+            "title": "Digital vs Analog",
+            "desc": "Reading real-world signals. Temperature, Light, and Motion.",
+            "link": "https://learn.sparkfun.com/tutorials/analog-vs-digital",
+            "icon": "fa-solid fa-wave-square"
+          },
+          {
+            "title": "Actuators",
+            "desc": "Making things move. Servos, Motors, and Relays.",
+            "link": "https://docs.arduino.cc/learn/electronics/servo-motors",
+            "icon": "fa-solid fa-gears"
+          },
+          {
+            "title": "Serial Comms",
+            "desc": "Talking to the computer. UART, I2C, and SPI protocols.",
+            "link": "https://learn.sparkfun.com/tutorials/serial-communication",
+            "icon": "fa-solid fa-comments"
+          }
+        ]
+      },
+      {
+        "id": "phase_3",
+        "title": "PHASE_03: The_Network",
+        "status": "locked",
+        "modules": [
+          {
+            "title": "ESP8266 / ESP32",
+            "desc": "Wi-Fi enabled microcontrollers. Connecting to the matrix.",
+            "link": "https://randomnerdtutorials.com/getting-started-with-esp32/",
+            "icon": "fa-solid fa-wifi"
+          },
+          {
+            "title": "MQTT Protocol",
+            "desc": "Lightweight messaging for IoT. Pub/Sub architecture.",
+            "link": "https://mqtt.org/",
+            "icon": "fa-solid fa-satellite"
+          },
+          {
+            "title": "Home Automation",
+            "desc": "Integrating with Home Assistant and smart devices.",
+            "link": "https://www.home-assistant.io/",
+            "icon": "fa-solid fa-house-signal"
+          }
+        ]
+      },
+      {
+        "id": "phase_4",
+        "title": "PHASE_04: Phantom_Builds",
+        "status": "locked",
+        "modules": [
+          {
+            "title": "Build a Phantom Node",
+            "desc": "TUTORIAL: Create a Wi-Fi sensor node for under $5.",
+            "link": "../pages/tutorials/phantom-node.html",
+            "icon": "fa-solid fa-ghost"
+          },
+          {
+            "title": "PCB Design",
+            "desc": "Moving from breadboard to printed circuit board with EasyEDA.",
+            "link": "https://easyeda.com/",
+            "icon": "fa-solid fa-pen-ruler"
+          }
+        ]
+      }
+    ]
   }
 }
