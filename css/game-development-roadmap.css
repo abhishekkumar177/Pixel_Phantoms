@@ -7,11 +7,16 @@
     --spine-width: 6px;
 }
 
-.roadmap-header {
+/* FIX: Ensure the header is perfectly centered */
+.roadmap-hero {
     text-align: center;
     padding: 80px 20px 40px;
     background: #050505;
     border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .glitch-text {
@@ -19,12 +24,23 @@
     font-family: 'JetBrains Mono', monospace;
     color: var(--roadmap-node-border);
     text-shadow: 2px 2px 0px #ff00ff;
+    margin-bottom: 10px;
 }
 
 .subtitle {
     color: #888;
     font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+
+/* New style for the extra line */
+.description {
+    color: #555;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
     margin-top: 10px;
+    max-width: 600px;
 }
 
 /* --- Wrapper & Spine --- */
@@ -63,7 +79,7 @@
     color: var(--roadmap-node-border);
     padding: 15px 30px;
     width: fit-content;
-    margin: 0 auto 20px; /* Reduced bottom margin to fit description */
+    margin: 0 auto 20px;
     position: relative;
     font-family: 'JetBrains Mono', monospace;
     font-weight: bold;
@@ -71,9 +87,9 @@
     border-radius: 4px;
     box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
     z-index: 2;
+    text-align: center; /* Ensure text inside box is centered */
 }
 
-/* New style for the Phase Description present in Game Dev JSON */
 .phase-description {
     text-align: center;
     color: #888;
@@ -89,12 +105,12 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    gap: 40px; /* Space between rows */
+    gap: 40px;
 }
 
 .module-node {
     position: relative;
-    width: 40%; /* Leaves space for center */
+    width: 40%;
     padding: 20px;
     background: var(--roadmap-node-bg);
     border: 1px solid #333;
@@ -105,7 +121,6 @@
     display: block;
 }
 
-/* Hover Effects */
 .module-node:hover {
     border-color: var(--roadmap-node-border);
     transform: translateY(-5px);
@@ -125,35 +140,32 @@
     line-height: 1.4;
 }
 
-/* --- Alternating Layout (Left / Right) --- */
-/* Left Side Nodes */
+/* --- Alternating Layout --- */
 .module-node.left {
-    margin-left: 5%; /* Align to left side of container */
+    margin-left: 5%;
     margin-right: auto;
     text-align: right;
 }
 
-/* Right Side Nodes */
 .module-node.right {
     margin-left: auto;
-    margin-right: 5%; /* Align to right side */
+    margin-right: 5%;
     text-align: left;
 }
 
-/* --- Connectors (The Lines) --- */
+/* --- Connectors --- */
 .module-node::after {
     content: '';
     position: absolute;
     top: 50%;
-    width: 15%; /* Reach towards center spine */
+    width: 15%;
     height: 2px;
     background: var(--roadmap-line-color);
     transition: background 0.3s;
 }
 
-/* Connector positioning */
 .module-node.left::after {
-    right: -25%; /* Extend out to spine */
+    right: -25%;
     width: 25%;
 }
 
@@ -162,7 +174,6 @@
     width: 25%;
 }
 
-/* Node Dot on Spine */
 .module-node::before {
     content: '';
     position: absolute;
@@ -178,8 +189,8 @@
 }
 
 .module-node.left::before {
-    right: -26%; /* Position exactly on spine */
-    margin-right: -6px; /* Half of width */
+    right: -26%;
+    margin-right: -6px;
 }
 
 .module-node.right::before {
@@ -187,7 +198,6 @@
     margin-left: -6px;
 }
 
-/* Hover State for Connectors */
 .module-node:hover::after {
     background: var(--roadmap-node-border);
 }
@@ -196,51 +206,12 @@
     background: var(--roadmap-node-border);
 }
 
-/* --- Status Styles (Locked vs Unlocked) --- */
-.module-node[data-status="locked"] {
-    opacity: 0.6;
-    border-color: #333;
-    pointer-events: none; /* Disable clicking if locked */
-    filter: grayscale(1);
-}
-
-.module-node[data-status="locked"]:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* --- Responsive Design --- */
+/* --- Responsive --- */
 @media (max-width: 768px) {
-    .roadmap-spine {
-        left: 20px;
-    }
-    
-    .module-node {
-        width: 80%;
-        margin-left: 50px !important; /* Force all to right of spine */
-        text-align: left !important;
-    }
-
-    .module-node.left::after,
-    .module-node.right::after {
-        left: -30px;
-        right: auto;
-        width: 30px;
-    }
-
-    .module-node.left::before,
-    .module-node.right::before {
-        left: -38px;
-        right: auto;
-    }
-    
-    .phase-header {
-        margin-left: 50px; /* Align phase header too */
-        margin-right: 0;
-    }
-    
-    .phase-description {
-        margin-left: 50px;
-        text-align: left;
-    }
+    .roadmap-spine { left: 20px; }
+    .module-node { width: 80%; margin-left: 50px !important; text-align: left !important; }
+    .module-node.left::after, .module-node.right::after { left: -30px; right: auto; width: 30px; }
+    .module-node.left::before, .module-node.right::before { left: -38px; right: auto; }
+    .phase-header { margin-left: 50px; margin-right: 0; }
+    .phase-description { margin-left: 50px; text-align: left; }
 }
