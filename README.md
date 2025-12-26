@@ -200,8 +200,10 @@ We welcome **all contributions** — design updates, animations, UI fixes, new p
 👉 Detailed contribution guidelines -> [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ---
+<details>
 
-# 🧑‍💻 Core Committee — 2024–25
+<summary><h1> 🧑‍💻 Core Committee — 2024–25</h1>
+</summary>
 
 * **Director:** Prathamesh Wamane
 * **President:** Krishna Shimpi
@@ -218,45 +220,26 @@ We welcome **all contributions** — design updates, animations, UI fixes, new p
 * **Media & Publicity Head:** Sarvesh Aher
 * **Mentors:** Sayee Gosavi, Mohit Jagtap
 
+</details>
+
 ---
 
 # 🛠 Tech Stack
 
-**Frontend:**
+**Frontend:**  HTML5 / CSS3 / JavaScript
 
-* HTML5
-* CSS3
-* JavaScript
-
-**Optional Add-ons:**
-
-* Bootstrap
-* AOS Animations
-* jQuery
-* API Integrations
+**Optional Add-ons:** Bootstrap / AOS Animations / jQuery / API Integrations
 
 ---
 
 # 🗺️ Project Roadmap
 
-### ✅ Completed
-
-* Basic UI setup
-* Home, About, Contact pages
-* Core committee section
-* Navbar & footer components
-
-### 🚧 In Progress
-
-* Events page
-* Projects showcase
-* Mobile responsiveness improvements
-
-### 🔮 Coming Soon
-
-* Dark/Light Mode
-* Blog section
-* Student portfolio integration
+✅ Completed |🚧 In Progress |🔮 Coming Soon
+|---|---|---|
+Basic UI setup | Events Page | Dark / Light mode
+Home, About, Contact pages | Projects showcase | Blog section
+Core committee section | Mobile responsiveness improvements | Student portfolio integration
+Navbar & footer components| |
 
 ---
 
