@@ -2607,18 +2607,25 @@ main:focus {
 /* Mobile adjustments */
 @media (max-width: 420px) {
   #feedback-widget {
-    left: 12px !important;
+    position: fixed !important;
+    left: auto !important;
+    right: 12px !important;
     bottom: 12px !important;
-    right: auto !important;
+    z-index: 9999 !important;
   }
 
   #feedback-panel {
-    bottom: 84px !important;
-    left: 12px !important;
-    right: 12px !important;
-    width: auto !important;
+      position: fixed !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: 32px !important;
+      width: calc(100% - 24px) !important;
+      max-width: 420px !important;
+      border-radius: 16px !important;
+      padding-bottom: 0px !important;
+      margin: 0 !important;
   }
-}
+
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
